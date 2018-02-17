@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
 const API = "http://localhost:8080";
-//const API = "http://192.168.43.166:8080";  v0.2.1
+//const API = "http://192.168.43.166:8080";
 const Title = styled.h1`
 	font-size:2.1em;
 	text-align: center;
@@ -16,6 +16,7 @@ class App extends Component {
   constructor(){
     super();
     this.state={
+      authorSuggest:[],
       count:0,
       books:[],
       currentBook:{
@@ -64,6 +65,11 @@ class App extends Component {
         authors:[{name:e.target.value}]
       }
     });
+    fetch(API+"/authors?s="+e.target.value, {mode: 'cors',headers:{
+      'Access-Control-Allow-Origin':'*' 
+      },})
+      .then( response => response.json())
+      .then( jsondata => this.setState({authorSuggest:jsondata}));
   }
   showInfo = () =>{
     console.log("Hello there!");
@@ -111,15 +117,20 @@ class App extends Component {
       booksCopy.splice(i,1);
  
       fetch(API+"/delete?i="+id, {mode: 'cors',headers:{
-      'Access-Control-Allow-Origin':'*'
+      'Access-Control-Allow-Origin':'*' 
       },})
-      .then( response =>response.text())
+      .then( response => response.text())
       .then( msg => this.setState({books:booksCopy}));
     } else {
         // Do nothing!
     }
   }
   render() {
+    let authSugg = this.state.authorSuggest.map((a,i)=>{
+      return(
+        <li key={i}>{a.name}</li>
+      );
+    });
     let bookRows = this.state.books.map((e,i)=>{
       return(
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
@@ -135,7 +146,9 @@ class App extends Component {
       {this.state.books.length===1?"book":"books"}&nbsp;
       in your library!
       <br/>
-      {/* {this.state.currentBook.authors[0].name} */}
+      <ul>
+      {authSugg}
+      </ul>
       <br/>
       <br/>
       <input
