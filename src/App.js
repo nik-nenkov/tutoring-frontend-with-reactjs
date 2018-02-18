@@ -12,6 +12,7 @@ const Title = styled.h1`
 	cursor:default;
 	margin-top:18px;
 `;
+
 class App extends Component {
   constructor(){
     super();
@@ -65,11 +66,16 @@ class App extends Component {
         authors:[{name:e.target.value}]
       }
     });
+
+    e.target.value.length>=1?
+
     fetch(API+"/authors?s="+e.target.value, {mode: 'cors',headers:{
       'Access-Control-Allow-Origin':'*' 
       },})
       .then( response => response.json())
-      .then( jsondata => this.setState({authorSuggest:jsondata}));
+      .then( jsondata => this.setState({authorSuggest:jsondata}))
+    
+    :this.setState({authorSuggest:[]});
   }
   showInfo = () =>{
     console.log("Hello there!");
@@ -136,6 +142,9 @@ class App extends Component {
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
       );
     });
+    let selectedAuthors = this.state.authorSuggest.map((a,i)=>{return(
+      <div className="selectedAuthor">{a.name} <div className="removeAuth">X</div></div>
+    );});
     return (
       <div className="App">
 
@@ -146,26 +155,36 @@ class App extends Component {
       {this.state.books.length===1?"book":"books"}&nbsp;
       in your library!
       <br/>
-      <ul>
-      {authSugg}
-      </ul>
       <br/>
       <br/>
+      <div id="titleContainer">
       <input
         placeholder="Book Title"
         size="10"
         onChange={this.onTitleChange}
         value={this.state.currentBook.title}/>
+      </div>
+      &nbsp;&nbsp;
+      <div id="isbnContainer">
       <input
         placeholder="ISBN"
         size="10"
         onChange={this.onIsbnChange}
         value={this.state.currentBook.isbn}/>
-      <input
-        placeholder="Author(s)"
-        size="10"
-        onChange={this.onAuthorChange}
-        value={this.state.currentBook.authors[0].name}/>
+      </div>
+      &nbsp;&nbsp;
+      <div id="authContainer">
+        {selectedAuthors}
+        <input
+          type="text"
+          id="authors" 
+          placeholder="Author(s)"
+          size="10"
+          onChange={this.onAuthorChange}
+          value={this.state.currentBook.authors[0].name}/>
+        <div id="authList">{authSugg}</div>
+      </div>
+      &nbsp;&nbsp;
       <button onClick={this.addBook}>Create</button>
       <br/>
       <br/>
