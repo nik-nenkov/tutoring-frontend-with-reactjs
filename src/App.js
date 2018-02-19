@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
-const API = "http://localhost:8080";
-//const API = "http://192.168.43.166:8080";
+//const API = "http://localhost:8080";
+//const API = "http://192.168.0.100:8080";
+const API = "http://192.168.43.166:8080";
 const Title = styled.h1`
 	font-size:2.1em;
 	text-align: center;
 	color: palevioletred;
 	user-select:none;
 	cursor:default;
-	margin-top:18px;
-`;
-
+	margin-top:18px;`;
 class App extends Component {
   constructor(){
     super();
@@ -24,9 +23,13 @@ class App extends Component {
       	id:0,
         title:"",
         isbn:"",
-        authors:[{name:""}]
+        authors:[]
       },
-      urlBooks:[]
+      urlBooks:[],
+      currentAuthor:{
+        id:0,
+        name:""
+      }
     };
   }
   componentDidMount(){
@@ -59,11 +62,8 @@ class App extends Component {
   }
   onAuthorChange = e => {
     this.setState({
-      currentBook:{
-      	id:this.state.currentBook.id,
-        title:this.state.currentBook.title,
-        isbn:this.state.currentBook.isbn,
-        authors:[{name:e.target.value}]
+      currentAuthor:{
+      	name:e.target.value
       }
     });
 
@@ -78,7 +78,7 @@ class App extends Component {
     :this.setState({authorSuggest:[]});
   }
   showInfo = () =>{
-    console.log("Hello there!");
+    window.alert("Hello there!");
   }
   addBook = () => {
   	if(this.state.currentBook.title===""){
@@ -109,13 +109,29 @@ class App extends Component {
           booksCopy.push(this.state.currentBook);
           this.setState({
               books:booksCopy,
-              currentBook:{id:0,title:"",isbn:"",authors:[{name:""}]}
+              currentBook:{id:0,title:"",isbn:"",authors:[]},
+              currentAuthor:{name:""}
           });
         });
       }catch(exception){
         window.alert("Something went wrong");
       }
     }  
+  }
+  addAuthor = e =>{
+    let authorsCopy = this.state.currentBook.authors.slice();
+    let someAuth = {id:e.id,name:e.name};
+    authorsCopy.push(someAuth);
+    this.setState({
+      currentBook:{
+        id:this.state.currentBook.id,
+        title:this.state.currentBook.title,
+        isbn:this.state.currentBook.isbn,
+        authors:authorsCopy
+      },
+      currentAuthor:{name:""},
+      authorSuggest:[]
+    });
   }
   deleteBook = (id,i) =>{
     if (window.confirm('Are you sure you want to DELETE this book?')) {
@@ -131,10 +147,21 @@ class App extends Component {
         // Do nothing!
     }
   }
+  clearSelection = () => {
+    this.setState({
+      currentBook:{
+        id:this.state.currentBook.id,
+        title:this.state.currentBook.title,
+        isbn:this.state.currentBook.isbn,
+        authors:[]},
+      currentAuthor:{name:""},
+      authorSuggest:[]
+    });
+  }
   render() {
     let authSugg = this.state.authorSuggest.map((a,i)=>{
       return(
-        <li key={i}>{a.name}</li>
+        <li key={i} onClick={() => this.addAuthor(a)}>{a.name}</li>
       );
     });
     let bookRows = this.state.books.map((e,i)=>{
@@ -142,9 +169,12 @@ class App extends Component {
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
       );
     });
-    let selectedAuthors = this.state.authorSuggest.map((a,i)=>{return(
-      <div className="selectedAuthor">{a.name} <div className="removeAuth">X</div></div>
-    );});
+    let selectedAuthors = 
+      typeof this.state.currentBook.authors==="undefined"?""
+      :this.state.currentBook.authors.map((a,i)=>{
+        return(<div className="selectedAuthor">{a.name} <div className="removeAuth">X</div></div>);
+      }
+    );
     return (
       <div className="App">
 
@@ -156,6 +186,7 @@ class App extends Component {
       in your library!
       <br/>
       <br/>
+      {/* <button onClick={this.clearSelection}>Clear</button> */}
       <br/>
       <div id="titleContainer">
       <input
@@ -181,7 +212,7 @@ class App extends Component {
           placeholder="Author(s)"
           size="10"
           onChange={this.onAuthorChange}
-          value={this.state.currentBook.authors[0].name}/>
+          value={this.state.currentAuthor.name}/>
         <div id="authList">{authSugg}</div>
       </div>
       &nbsp;&nbsp;
@@ -220,5 +251,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

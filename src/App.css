@@ -1,32 +1,22 @@
 .App {
   text-align: center;
 }
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
-
 .App-header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
 }
-
 .App-title {
   font-size: 1.5em;
 }
-
 .App-intro {
   font-size: large;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 #bookList table{
   border: 1px solid rgb(245,245,245);
   text-align: left;
@@ -78,7 +68,6 @@ input{
   line-height: 16px;
   vertical-align: middle;
 }
-
 #authList li{
   list-style-type: none;
   cursor:pointer;
@@ -88,17 +77,18 @@ input{
 }
 #authList li:hover{
   color:rgb(7, 24, 177);
+  font-size: 1em;
 }
 .selectedAuthor{
   height:14px;
   font-size:0.85em;
-  padding:3px 5px 3px 7px;
-  margin:2px 3px;
+  padding:4px 5px 3px 7px;
+  margin:2px 1px 2px 5px;
   display:inline-block;
   border-radius: 10px;
-  border:1px solid purple;
-  background-color:plum;
-  line-height: 14px;
+  border:0.5px solid rgb(168, 0, 168);
+  background-color:rgba(255, 168, 255, 0.582);
+  line-height: 12px;
   vertical-align: middle;
   cursor:pointer;
 }

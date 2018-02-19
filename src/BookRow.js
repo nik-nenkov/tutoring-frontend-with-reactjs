@@ -28,5 +28,4 @@ class BookRow extends Component {
     );
   }
 }
-
 export default BookRow;
