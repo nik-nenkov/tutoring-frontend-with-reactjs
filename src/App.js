@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
-//const API = "http://localhost:8080";
+const API = "http://localhost:8080";
 //const API = "http://192.168.0.100:8080";
-const API = "http://192.168.43.166:8080";
+//const API = "http://192.168.43.166:8080";
 const Title = styled.h1`
 	font-size:2.1em;
 	text-align: center;
@@ -63,19 +63,26 @@ class App extends Component {
   onAuthorChange = e => {
     this.setState({
       currentAuthor:{
-      	name:e.target.value
+        name:e.target.value
       }
     });
-
-    e.target.value.length>=1?
-
-    fetch(API+"/authors?s="+e.target.value, {mode: 'cors',headers:{
-      'Access-Control-Allow-Origin':'*' 
-      },})
+    if(e.target.value.length>=1){
+      fetch(API+"/authors?s="+e.target.value, {mode: 'cors',headers:{'Access-Control-Allow-Origin':'*' },})
       .then( response => response.json())
-      .then( jsondata => this.setState({authorSuggest:jsondata}))
-    
-    :this.setState({authorSuggest:[]});
+      .then( jsondata => {
+        let n = this.state.currentBook.authors.length;
+        let result = jsondata;
+        if(n>0){
+          for(let i=0;i<n;i++){
+            result = result.filter(auth => auth.id!==this.state.currentBook.authors[i].id);
+          }
+        }
+        result.unshift(this.state.currentAuthor);
+        this.setState({authorSuggest:result});}
+      );
+    }else{
+      this.setState({authorSuggest:[]});
+    }
   }
   showInfo = () =>{
     window.alert("Hello there!");
@@ -172,7 +179,14 @@ class App extends Component {
     let selectedAuthors = 
       typeof this.state.currentBook.authors==="undefined"?""
       :this.state.currentBook.authors.map((a,i)=>{
-        return(<div className="selectedAuthor">{a.name} <div className="removeAuth">X</div></div>);
+        return(
+          <div className="selectedAuthor" key={i}>
+            {a.name} 
+            <div className="removeAuth" key={i} onClick={() => this.clearSelection()}>
+              X
+            </div>
+          </div>
+        );
       }
     );
     return (
@@ -206,6 +220,7 @@ class App extends Component {
       &nbsp;&nbsp;
       <div id="authContainer">
         {selectedAuthors}
+        <div className="authInput">
         <input
           type="text"
           id="authors" 
@@ -214,9 +229,10 @@ class App extends Component {
           onChange={this.onAuthorChange}
           value={this.state.currentAuthor.name}/>
         <div id="authList">{authSugg}</div>
+        </div>
       </div>
       &nbsp;&nbsp;
-      <button onClick={this.addBook}>Create</button>
+      <div onClick={this.addBook} className="addButton">Create</div>
       <br/>
       <br/>
       <br/>

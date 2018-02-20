@@ -6,9 +6,6 @@ function concatAuthors(e){
 	}
 	return str;
 }
-var buttonStyle = {
-	cursor:"pointer"
-}
 class BookRow extends Component {
   render() {
     return (
@@ -22,8 +19,12 @@ class BookRow extends Component {
 										concatAuthors(this.props.book.authors)
 					}
 				</td>
-      	<td><button onClick={this.props.delete} style={buttonStyle}>Update</button></td>
-      	<td><button onClick={this.props.delete}>Delete</button></td>
+      	
+      	<td>
+					{/* <button onClick={this.props.delete}>Delete</button> */}
+				</td>
+
+				<td><div onClick={this.props.delete} className="customButton">...</div></td>
       </tr>
     );
   }
