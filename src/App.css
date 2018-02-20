@@ -33,7 +33,7 @@
   margin:0;
   padding:7px 12px 5px 12px;
   user-select:none;
-  background-color:rgba(189, 132, 255, 0.11);
+  background-color:rgba(242, 219, 255, 0.11);
 }
 #bookList table tr td{
   border:none;
@@ -55,6 +55,12 @@
   color:rgb(105, 0, 119);
   padding-left:15px;
   padding-right:15px;
+}
+#bookList table td:nth-child(4) {  
+  max-width:350px;
+}
+td{
+  vertical-align: top;
 }
 #isbnContainer,#titleContainer,#authContainer{
   height:30px;
@@ -169,4 +175,14 @@ tr:hover td{
 .addButton:hover{
   box-shadow:0 0 3px rgb(138, 19, 168);
   color:rgb(138, 19, 168);
+}
+input{
+  margin-bottom: 3px;
+  margin-left:2px;
+}
+.AuthorsShown{
+  display: inline-block;
+  margin:0;
+  padding:0 0 0 4px;
+  /* border: 1px solid rgba(165, 165, 165, 0.26); */
 }

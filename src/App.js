@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
+import BookAddingWizzard from './BookAddingWizzard';
+
 const API = "http://localhost:8080";
 //const API = "http://192.168.0.100:8080";
 //const API = "http://192.168.43.166:8080";
@@ -84,7 +86,7 @@ class App extends Component {
       this.setState({authorSuggest:[]});
     }
   }
-  showInfo = () =>{
+  showInfo = () => {
     window.alert("Hello there!");
   }
   addBook = () => {
@@ -125,7 +127,7 @@ class App extends Component {
       }
     }  
   }
-  addAuthor = e =>{
+  addAuthor = e => {
     let authorsCopy = this.state.currentBook.authors.slice();
     let someAuth = {id:e.id,name:e.name};
     authorsCopy.push(someAuth);
@@ -140,7 +142,7 @@ class App extends Component {
       authorSuggest:[]
     });
   }
-  deleteBook = (id,i) =>{
+  deleteBook = (id,i) => {
     if (window.confirm('Are you sure you want to DELETE this book?')) {
       let booksCopy = this.state.books.slice();
       booksCopy.splice(i,1);
@@ -154,16 +156,23 @@ class App extends Component {
         // Do nothing!
     }
   }
-  clearSelection = () => {
+  clearSelection = (authName) => {
+    let newAuthor=this.state.currentBook.authors.filter(auth => auth.name!==authName)
     this.setState({
       currentBook:{
         id:this.state.currentBook.id,
         title:this.state.currentBook.title,
         isbn:this.state.currentBook.isbn,
-        authors:[]},
+        authors:newAuthor},
       currentAuthor:{name:""},
       authorSuggest:[]
     });
+  }
+  handleAuthorKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.addAuthor(this.state.currentAuthor);
+      // window.alert('do validate');
+    }
   }
   render() {
     let authSugg = this.state.authorSuggest.map((a,i)=>{
@@ -176,13 +185,14 @@ class App extends Component {
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
       );
     });
+
     let selectedAuthors = 
       typeof this.state.currentBook.authors==="undefined"?""
       :this.state.currentBook.authors.map((a,i)=>{
         return(
           <div className="selectedAuthor" key={i}>
             {a.name} 
-            <div className="removeAuth" key={i} onClick={() => this.clearSelection()}>
+            <div className="removeAuth" key={i} onClick={() => this.clearSelection(a.name)}>
               X
             </div>
           </div>
@@ -191,49 +201,44 @@ class App extends Component {
     );
     return (
       <div className="App">
-
       <Title>Simple SPA CRUD - Book Library</Title>
-      <br/>
       <br/>
       You have {this.state.books.length}&nbsp;
       {this.state.books.length===1?"book":"books"}&nbsp;
       in your library!
       <br/>
+      {/* <BookAddingWizzard data={this.state}/> */}
       <br/>
-      {/* <button onClick={this.clearSelection}>Clear</button> */}
       <br/>
       <div id="titleContainer">
       <input
-        placeholder="Book Title"
-        size="10"
-        onChange={this.onTitleChange}
-        value={this.state.currentBook.title}/>
+      placeholder="Book Title"
+      size="10"
+      onChange={this.onTitleChange}
+      value={this.state.currentBook.title}/>
       </div>
-      &nbsp;&nbsp;
       <div id="isbnContainer">
       <input
-        placeholder="ISBN"
-        size="10"
-        onChange={this.onIsbnChange}
-        value={this.state.currentBook.isbn}/>
+      placeholder="ISBN"
+      size="10"
+      onChange={this.onIsbnChange}
+      value={this.state.currentBook.isbn}/>
       </div>
-      &nbsp;&nbsp;
       <div id="authContainer">
-        {selectedAuthors}
-        <div className="authInput">
-        <input
+      {selectedAuthors}
+      <div className="authInput">
+      <input
           type="text"
           id="authors" 
           placeholder="Author(s)"
           size="10"
           onChange={this.onAuthorChange}
-          value={this.state.currentAuthor.name}/>
-        <div id="authList">{authSugg}</div>
-        </div>
+          value={this.state.currentAuthor.name}
+          onKeyPress={this.handleAuthorKeyPress}/>
+      <div id="authList">{authSugg}</div>
       </div>
-      &nbsp;&nbsp;
+      </div>
       <div onClick={this.addBook} className="addButton">Create</div>
-      <br/>
       <br/>
       <br/>
       <br/>
@@ -267,4 +272,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;

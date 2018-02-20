@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-function concatAuthors(e){
-	let str=e[0].name;
-	for(let i=1;i<e.length;i++){
-		str=str+", "+e[i].name;
-	}
-	return str;
-}
 class BookRow extends Component {
   render() {
     return (
@@ -16,7 +9,13 @@ class BookRow extends Component {
 				<td>
 					{typeof this.props.book.authors==='undefined'?"n/a":
 									this.props.book.authors.length===0?"n/a":
-										concatAuthors(this.props.book.authors)
+									this.props.book.authors.map((a,i)=>{
+										return i===0?(
+											<span key={i}><div key={i} className="AuthorsShown">{a.name}</div></span>
+										):(
+											<span key={i}>,<div key={i} className="AuthorsShown">{a.name}</div></span>
+										);
+									})
 					}
 				</td>
       	
