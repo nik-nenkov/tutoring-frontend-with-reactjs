@@ -185,7 +185,6 @@ class App extends Component {
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
       );
     });
-
     let selectedAuthors = 
       typeof this.state.currentBook.authors==="undefined"?""
       :this.state.currentBook.authors.map((a,i)=>{
@@ -196,16 +195,14 @@ class App extends Component {
               X
             </div>
           </div>
-        );
-      }
+        );}
     );
     return (
       <div className="App">
       <Title>Simple SPA CRUD - Book Library</Title>
       <br/>
       You have {this.state.books.length}&nbsp;
-      {this.state.books.length===1?"book":"books"}&nbsp;
-      in your library!
+      {this.state.books.length===1?"book":"books"} in your library!
       <br/>
       {/* <BookAddingWizzard data={this.state}/> */}
       <br/>
