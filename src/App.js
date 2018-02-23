@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
+import Footer from './Footer';
 import BookAddingWizard from './BookAddingWizard';
 const API = "http://localhost:8080";
 //const API = "http://192.168.0.100:8080";
@@ -158,7 +159,10 @@ class App extends Component {
       'Access-Control-Allow-Origin':'*' 
       },})
       .then( response => response.text())
-      .then( msg => {this.setState({books:booksCopy});window.alert(msg);});
+      .then( msg => {
+        this.setState({books:booksCopy});
+        // window.alert(msg);
+      });
     } else {
         // Do nothing!
     }
@@ -221,7 +225,7 @@ class App extends Component {
         isWizardOpened={this.state.isWizardOpened}
         closeWizard   ={this.closeWizard}
         wizardPage    ={this.state.wizardPage}
-        // partOne       ={this.partOne}
+        // partOne    ={this.partOne}
         partTwo       ={partTwo}
         />
 
@@ -247,9 +251,9 @@ class App extends Component {
             </tbody>
           </table>
         }</div>
-      <br/><br/><br/><br/><br/>
-      Intellectual property of<br/>
-      © 2018 Greenwall JSC.<br/><br/>
+      <br/><br/><br/>
+
+      <Footer/>
       </div>
     );
   }
