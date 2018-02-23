@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 class BookAddingWizard extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            page:1
-        }
-    }
     render() {
         if(this.props.isWizardOpened){
             let selectedAuthors = 
@@ -26,10 +20,11 @@ class BookAddingWizard extends Component{
                     <li key={i} onClick={() => this.props.addAuthor(a)}>{a.name}</li>
                 );
             });
-            let partTwo = ()=>{this.setState({page:2});}
-            return (<div className="BookAddingWizard">
+            if(this.props.wizardPage===1){
+            return (
+            <div className="BookAddingWizard">
                 <span>BookAddingWizard here!</span>
-                {this.state.page===1?<div className="step1">
+                <div className="step1">
                     <br/><br/>
                     <div className="titleContainer">
                         <input
@@ -48,32 +43,36 @@ class BookAddingWizard extends Component{
                         value={this.props.currentBook.isbn}/>
                     </div>
                     <br/><br/>
-                    <div onClick={partTwo} className="addButton">Next</div>
-                    <div onClick={this.props.closeWizard} className="addButton">Close</div>
-                </div>:<div className="step2">
-                    <br/><br/>
-                    {selectedAuthors}<br/><br/>
-                    <div className="authContainer">
-                        <div className="authInput">
-                        <input
-                            type="text"
-                            id="authors" 
-                            placeholder="Author(s)"
-                            size="10"
-                            onChange={this.props.onAuthorChange}
-                            value={this.props.currentAuthor.name}
-                            onKeyPress={this.props.authorKeyPress}/>
-                        <div id="authList">{authSugg}</div>
-                        </div>
-                    </div>
-                    <br/><br/>
-                    <div onClick={this.props.addBook} className="addButton">Save</div>
-                    <div onClick={this.props.closeWizard} className="addButton">Close</div>
-                </div>}
-                
-
-                
+                    <div onClick={this.props.partTwo} className="nextButton">Next</div>
+                    <div onClick={this.props.closeWizard} className="closeButton">Close</div>
+                </div>
             </div>);
+            }else if(this.props.wizardPage===2){
+                return (
+            <div className="BookAddingWizard">
+                <span>BookAddingWizard here!</span>
+                <div className="step2">
+                <br/><br/>
+                {selectedAuthors}<br/><br/>
+                <div className="authContainer">
+                    <div className="authInput">
+                    <input
+                        type="text"
+                        id="authors" 
+                        placeholder="Author(s)"
+                        size="10"
+                        onChange={this.props.onAuthorChange}
+                        value={this.props.currentAuthor.name}
+                        onKeyPress={this.props.authorKeyPress}/>
+                    <div id="authList">{authSugg}</div>
+                    </div>
+                </div>
+                <br/><br/>
+                <div onClick={this.props.addBook} className="addButton">Save</div>
+                <div onClick={this.props.closeWizard} className="closeButton">Close</div>
+                </div>
+            </div>);
+            }
         }else{return null}
     }
 }

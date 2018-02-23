@@ -155,7 +155,7 @@ tr:not(:first-child):hover{
 tr:hover td{
   border:rgba(255, 132, 255, 0.11)
 }
-.addButton{
+.addButton,.closeButton,.nextButton{
   cursor:pointer;
   color:rgb(182, 12, 224);
   border-radius:5px;
@@ -163,18 +163,15 @@ tr:hover td{
   text-align:center;
   background-color:rgba(255, 154, 247, 0.253);
   display:inline-block;
-  vertical-align:center;
-  font-size:0.9em;
-  width:auto;
+  vertical-align:middle;
+  /* font-size:0.9em; */
   padding:4px 8px;
-  line-height:auto;
-  height:auto;
   margin:2px 4px;
   font-style: oblique;
 }
-.addButton:hover{
-  box-shadow:0 0 3px rgb(138, 19, 168);
-  color:rgb(138, 19, 168);
+.addButton:hover,.closeButton:hover,.nextButton:hover{
+  box-shadow:1px 0px 4px rgb(135, 105, 190);
+  /* color:rgb(138, 19, 168); */
 }
 input{
   margin-bottom: 3px;

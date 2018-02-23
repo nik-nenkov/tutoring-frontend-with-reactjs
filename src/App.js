@@ -18,6 +18,7 @@ class App extends Component {
     super();
     this.state={
       isWizardOpened:false,
+      wizardPage:1,
       authorSuggest:[],
       count:0,
       books:[],
@@ -126,7 +127,8 @@ class App extends Component {
       }catch(exception){
         window.alert("Something went wrong");
       }finally{
-        this.setState({isWizardOpened:false});
+        this.setState({isWizardOpened:false,wizardPage:1,currentBook:{id:0,title:"",isbn:"",authors:[]},
+        currentAuthor:{name:""}});
       }
     }  
   }
@@ -180,7 +182,8 @@ class App extends Component {
     }
   }
   closeWizard = () =>{
-    this.setState({isWizardOpened:false});
+    this.setState({isWizardOpened:false,wizardPage:1,currentBook:{id:0,title:"",isbn:"",authors:[]},
+    currentAuthor:{name:""}});
   }
   render() {
     let bookRows = this.state.books.map((e,i)=>{
@@ -189,6 +192,10 @@ class App extends Component {
       );
     });
     let openWizard=()=>{this.setState({isWizardOpened:!this.state.isWizardOpened});}
+    let partTwo = ()=>{if(this.state.currentBook.title===""){
+      window.alert("Title can not be an empty field!");
+      }else{this.setState({wizardPage:2});}}
+    // let partOne = ()=>{this.setState({wizardPage:1});}
     return (
       <div className="App">
         <Title>Simple SPA CRUD - Book Library</Title>
@@ -213,6 +220,9 @@ class App extends Component {
         addBook       ={this.addBook}
         isWizardOpened={this.state.isWizardOpened}
         closeWizard   ={this.closeWizard}
+        wizardPage    ={this.state.wizardPage}
+        // partOne       ={this.partOne}
+        partTwo       ={partTwo}
         />
 
 {/* ----------------------------------------------------------------------------------------------------- */}
