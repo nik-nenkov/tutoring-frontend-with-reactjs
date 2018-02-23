@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import BookRow from './BookRow';
-import BookAddingWizzard from './BookAddingWizzard';
-
+import BookAddingWizard from './BookAddingWizard';
 const API = "http://localhost:8080";
 //const API = "http://192.168.0.100:8080";
 //const API = "http://192.168.43.166:8080";
@@ -18,6 +17,7 @@ class App extends Component {
   constructor(){
     super();
     this.state={
+      isWizardOpened:false,
       authorSuggest:[],
       count:0,
       books:[],
@@ -103,44 +103,49 @@ class App extends Component {
           'Access-Control-Allow-Origin':'*',
         },
         body: JSON.stringify(this.state.currentBook)
-      })
-      .then( response => response.json())
-        .then( jsondata => this.setState({
-          currentBook:{
-            id:jsondata.id,
-            title:jsondata.title,
-            isbn:jsondata.isbn,
-            authors:jsondata.authors
-          }
-        }))
-        .then( ()		=> {
-          let booksCopy = this.state.books.slice();
-          booksCopy.push(this.state.currentBook);
-          this.setState({
-              books:booksCopy,
-              currentBook:{id:0,title:"",isbn:"",authors:[]},
-              currentAuthor:{name:""}
+        })
+        .then( response => response.json())
+          .then( jsondata => this.setState({
+            authorSuggest:[],
+            currentBook:{
+              id:jsondata.id,
+              title:jsondata.title,
+              isbn:jsondata.isbn,
+              authors:jsondata.authors
+            }
+          }))
+          .then( ()		=> {
+            let booksCopy = this.state.books.slice();
+            booksCopy.push(this.state.currentBook);
+            this.setState({
+                books:booksCopy,
+                currentBook:{id:0,title:"",isbn:"",authors:[]},
+                currentAuthor:{name:""}
+            });
           });
-        });
       }catch(exception){
         window.alert("Something went wrong");
+      }finally{
+        this.setState({isWizardOpened:false});
       }
     }  
   }
   addAuthor = e => {
-    let authorsCopy = this.state.currentBook.authors.slice();
-    let someAuth = {id:e.id,name:e.name};
-    authorsCopy.push(someAuth);
-    this.setState({
-      currentBook:{
-        id:this.state.currentBook.id,
-        title:this.state.currentBook.title,
-        isbn:this.state.currentBook.isbn,
-        authors:authorsCopy
-      },
-      currentAuthor:{name:""},
-      authorSuggest:[]
-    });
+    if(e.name!==""){
+      let authorsCopy = this.state.currentBook.authors.slice();
+      let someAuth = {id:e.id,name:e.name};
+      authorsCopy.push(someAuth);
+      this.setState({
+        currentBook:{
+          id:this.state.currentBook.id,
+          title:this.state.currentBook.title,
+          isbn:this.state.currentBook.isbn,
+          authors:authorsCopy
+        },
+        currentAuthor:{name:""},
+        authorSuggest:[]
+      });
+    }
   }
   deleteBook = (id,i) => {
     if (window.confirm('Are you sure you want to DELETE this book?')) {
@@ -151,7 +156,7 @@ class App extends Component {
       'Access-Control-Allow-Origin':'*' 
       },})
       .then( response => response.text())
-      .then( msg => this.setState({books:booksCopy}));
+      .then( msg => {this.setState({books:booksCopy});window.alert(msg);});
     } else {
         // Do nothing!
     }
@@ -168,106 +173,75 @@ class App extends Component {
       authorSuggest:[]
     });
   }
-  handleAuthorKeyPress = (e) => {
+  authorKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.addAuthor(this.state.currentAuthor);
       // window.alert('do validate');
     }
   }
+  closeWizard = () =>{
+    this.setState({isWizardOpened:false});
+  }
   render() {
-    let authSugg = this.state.authorSuggest.map((a,i)=>{
-      return(
-        <li key={i} onClick={() => this.addAuthor(a)}>{a.name}</li>
-      );
-    });
     let bookRows = this.state.books.map((e,i)=>{
       return(
         <BookRow key={i} book={e} delete={()=>this.deleteBook(e.id,i)}/>
       );
     });
-    let selectedAuthors = 
-      typeof this.state.currentBook.authors==="undefined"?""
-      :this.state.currentBook.authors.map((a,i)=>{
-        return(
-          <div className="selectedAuthor" key={i}>
-            {a.name} 
-            <div className="removeAuth" key={i} onClick={() => this.clearSelection(a.name)}>
-              X
-            </div>
-          </div>
-        );}
-    );
+    let openWizard=()=>{this.setState({isWizardOpened:!this.state.isWizardOpened});}
     return (
       <div className="App">
-      <Title>Simple SPA CRUD - Book Library</Title>
-      <br/>
-      You have {this.state.books.length}&nbsp;
-      {this.state.books.length===1?"book":"books"} in your library!
-      <br/>
-      {/* <BookAddingWizzard data={this.state}/> */}
-      <br/>
-      <br/>
-      <div id="titleContainer">
-      <input
-      placeholder="Book Title"
-      size="10"
-      onChange={this.onTitleChange}
-      value={this.state.currentBook.title}/>
-      </div>
-      <div id="isbnContainer">
-      <input
-      placeholder="ISBN"
-      size="10"
-      onChange={this.onIsbnChange}
-      value={this.state.currentBook.isbn}/>
-      </div>
-      <div id="authContainer">
-      {selectedAuthors}
-      <div className="authInput">
-      <input
-          type="text"
-          id="authors" 
-          placeholder="Author(s)"
-          size="10"
-          onChange={this.onAuthorChange}
-          value={this.state.currentAuthor.name}
-          onKeyPress={this.handleAuthorKeyPress}/>
-      <div id="authList">{authSugg}</div>
-      </div>
-      </div>
-      <div onClick={this.addBook} className="addButton">Create</div>
-      <br/>
-      <br/>
-      <br/>
+        <Title>Simple SPA CRUD - Book Library</Title>
+        <br/>
+        You have {this.state.books.length}&nbsp;
+        {this.state.books.length===1?"book":"books"} in your library!
+        <br/><br/><div onClick={openWizard} className="customButton2">Add new book</div><br/>
+
+
+{/* ----------------------------------------------------------------------------------------------------- */}
+
+      <BookAddingWizard 
+        currentBook   ={this.state.currentBook}
+        currentAuthor ={this.state.currentAuthor}
+        authorSuggest ={this.state.authorSuggest}
+        onTitleChange ={this.onTitleChange}
+        onIsbnChange  ={this.onIsbnChange}
+        onAuthorChange={this.onAuthorChange}
+        authorKeyPress={this.authorKeyPress}
+        clearSelection={this.clearSelection}
+        addAuthor     ={this.addAuthor}
+        addBook       ={this.addBook}
+        isWizardOpened={this.state.isWizardOpened}
+        closeWizard   ={this.closeWizard}
+        />
+
+{/* ----------------------------------------------------------------------------------------------------- */}
+
+
+      <br/><br/><br/>
       <div id="bookList">
-      <table>
-      <tbody>
-      <tr>
-	      <th>ID</th>
-	      <th>Book Title</th>
-	      <th>ISBN</th>
-	      <th>Author(s)</th>
-	      <th></th>
-	      <th></th>
-      </tr>
-      {bookRows}
-      </tbody>
-      </table>
-      </div>
-      <br/>
-      <br/>
-      {/* <button onClick={this.showInfo}>Say hi</button> */}
-      <br/>
-      <br/>
-      <br/>
-      Intellectual property of
-      <br/>
-      © 2018 Greenwall JSC.
-      <br/>
-      <br/>
+        {this.state.books.length===0?
+          <h2>The list is empty!</h2>
+          :
+          <table>
+            <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Book Title</th>
+              <th>ISBN</th>
+              <th>Author(s)</th>
+              <th></th>
+              <th></th>
+            </tr>
+            {bookRows}
+            </tbody>
+          </table>
+        }</div>
+      <br/><br/><br/><br/><br/>
+      Intellectual property of<br/>
+      © 2018 Greenwall JSC.<br/><br/>
       </div>
     );
   }
 }
-
 export default App;
