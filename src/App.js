@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import './App.css';
-import BookRow from './BookRow';
-import Footer from './Footer';
-import BookAddingWizard from './BookAddingWizard';
+
+import './resources/App.css';
+import BookRow from './components/BookRow';
+import Title from './components/Title';
+import Footer from './components/Footer';
+import BookAddingWizard from './components/BookAddingWizard';
+
 const API = "http://localhost:8080";
-//const API = "http://192.168.0.100:8080";
 //const API = "http://192.168.43.166:8080";
-const Title = styled.h1`
-	font-size:2.1em;
-	text-align: center;
-	color: palevioletred;
-	user-select:none;
-	cursor:default;
-	margin-top:18px;`;
+
 class App extends Component {
   constructor(){
     super();
@@ -39,7 +34,11 @@ class App extends Component {
   componentDidMount(){
   	fetch(API+"/books?o=id",{mode: 'cors',headers:{'Access-Control-Allow-Origin':'*'}})
   	.then( response => response.json())
-  	.then( jsondata => this.setState({books:jsondata}));
+    .then( jsondata => this.setState({books:jsondata}));
+    // fetch("api.openweathermap.org/data/2.5/weather?q=Sofia,bg&appid=b92c2b005932d8162e46d3633ec1971e")
+    // .then( response => response.json())
+    // .then( jsondata => this.setState({weather:jsondata}) )
+    // .then(()=>{console.log(JSON.stringify(this.state.weather));});
   }
   increment = () => {
     this.setState({count:this.state.count+1});
@@ -53,7 +52,7 @@ class App extends Component {
         authors:this.state.currentBook.authors
       }
     });
-  }
+  };
   onIsbnChange = e => {
     this.setState({
       currentBook:{
@@ -202,11 +201,12 @@ class App extends Component {
     // let partOne = ()=>{this.setState({wizardPage:1});}
     return (
       <div className="App">
-        <Title>Simple SPA CRUD - Book Library</Title>
+        <Title/>
         <br/>
         You have {this.state.books.length}&nbsp;
         {this.state.books.length===1?"book":"books"} in your library!
         <br/><br/><div onClick={openWizard} className="customButton2">Add new book</div><br/>
+        {/* {this.state.weather} */}
 
 
 {/* ----------------------------------------------------------------------------------------------------- */}
