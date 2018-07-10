@@ -135,9 +135,8 @@ class App extends Component {
                 },
             })
                 .then(response => response.text())
-                .then(msg => {
+                .then(() => {
                     this.setState({books: booksCopy});
-                    // window.alert(msg);
                 });
         } else {
             // Do nothing!
@@ -168,7 +167,6 @@ class App extends Component {
             currentAuthor: {name: ""}
         });
     };
-
     constructor() {
         super();
         this.state = {
@@ -190,17 +188,11 @@ class App extends Component {
             }
         };
     }
-
     componentDidMount() {
         fetch(API + "/books?o=id", {mode: 'cors', headers: {'Access-Control-Allow-Origin': '*'}})
             .then(response => response.json())
             .then(jsondata => this.setState({books: jsondata}));
-        // fetch("api.openweathermap.org/data/2.5/weather?q=Sofia,bg&appid=b92c2b005932d8162e46d3633ec1971e")
-        // .then( response => response.json())
-        // .then( jsondata => this.setState({weather:jsondata}) )
-        // .then(()=>{console.log(JSON.stringify(this.state.weather));});
     }
-
     render() {
         let bookRows = this.state.books.map((e, i) => {
             return (
@@ -217,7 +209,6 @@ class App extends Component {
                 this.setState({wizardPage: 2});
             }
         };
-        // let partOne = ()=>{this.setState({wizardPage:1});}
         return (
             <div className="App">
                 <Title/>
@@ -227,11 +218,6 @@ class App extends Component {
                 <br/><br/>
                 <div onClick={openWizard} className="customButton2">Add new book</div>
                 <br/>
-                {/* {this.state.weather} */}
-
-
-                {/* ----------------------------------------------------------------------------------------------------- */}
-
                 <BookAddingWizard
                     currentBook={this.state.currentBook}
                     currentAuthor={this.state.currentAuthor}
@@ -249,10 +235,6 @@ class App extends Component {
                     // partOne    ={this.partOne}
                     partTwo={partTwo}
                 />
-
-                {/* ----------------------------------------------------------------------------------------------------- */}
-
-
                 <br/><br/><br/>
                 <div id="bookList">
                     {this.state.books.length === 0 ?
