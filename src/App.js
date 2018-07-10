@@ -9,6 +9,8 @@ import BookAddingWizard from './components/BookAddingWizard';
 const API = "http://localhost:8080";
 //const API = "http://192.168.43.166:8080";
 
+// July 10th, 2018 - restarting app for the first time after 4 months
+
 class App extends Component {
   constructor(){
     super();
