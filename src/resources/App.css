@@ -1,243 +1,279 @@
 :root {
-  --main-footer-height: 85px;
+    --main-footer-height: 85px;
 }
-html{
-  margin:0;
-  padding:0;
-  height:100%; /* needed for container min-height */
-  background:gray;
+
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* needed for container min-height */
+    background: gray;
 }
+
 .App {
-  background-color:rgba(255, 255, 255, 0.95);
-  position:absolute;
-  text-align: center;
-  cursor:default;
-  min-height:calc( 100% - var(--main-footer-height) );
-  min-width: 100%;
-  padding-bottom:var(--main-footer-height);
+    background-color: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    text-align: center;
+    cursor: default;
+    min-height: calc(100% - var(--main-footer-height));
+    min-width: 100%;
+    padding-bottom: var(--main-footer-height);
 }
-.Footer{
-  position: absolute;
-  width:100%;
-  bottom:0;
-  background-color: rgba(106, 145, 255, 0.582);
-  height:var(--main-footer-height);
+
+.Footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(106, 145, 255, 0.582);
+    height: var(--main-footer-height);
 }
+
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
+
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
+
 .App-title {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
+
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
-.Title{
-  /* font-size:2.1em; */
-	text-align: center;
-	color: palevioletred;
-	user-select:none;
-	cursor:default;
-	margin-top:18px;
+
+.Title {
+    /* font-size:2.1em; */
+    text-align: center;
+    color: palevioletred;
+    user-select: none;
+    cursor: default;
+    margin-top: 18px;
 }
-#bookList table{
-  border: 1px solid rgb(245,245,245);
-  text-align: left;
-  padding:0;
-  /* border:none; */
-  border-spacing:0; /* Removes the cell spacing via CSS */
-  border-collapse: collapse; padding:14px;
+
+#bookList table {
+    border: 1px solid rgb(245, 245, 245);
+    text-align: left;
+    /* border:none; */
+    border-spacing: 0; /* Removes the cell spacing via CSS */
+    border-collapse: collapse;
+    padding: 14px;
 }
-#bookList table th{
-  /* border:1px solid rgb(245,245,245); */
-  border:none;
-  text-align: left;
-  margin:0;
-  padding:7px 12px 5px 12px;
-  user-select:none;
-  background-color:rgba(242, 219, 255, 0.11);
+
+#bookList table th {
+    /* border:1px solid rgb(245,245,245); */
+    border: none;
+    text-align: left;
+    margin: 0;
+    padding: 7px 12px 5px 12px;
+    user-select: none;
+    background-color: rgba(242, 219, 255, 0.11);
 }
-#bookList table tr td{
-  border:none;
-  padding:5px;
-  text-align: left;
-  margin:0;
+
+#bookList table tr td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    margin: 0;
 }
-#bookList{
-  display:inline-block;
-  margin-left:auto;
-  margin-right:auto;
+
+#bookList {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
 }
-#bookList table td:nth-child(1) {  
-  text-align: right;
-  color:rgb(224, 12, 118);
+
+#bookList table td:nth-child(1) {
+    text-align: right;
+    color: rgb(224, 12, 118);
 }
-#bookList table td:nth-child(3) {  
-  text-align: right;
-  color:rgb(105, 0, 119);
-  padding-left:15px;
-  padding-right:15px;
+
+#bookList table td:nth-child(3) {
+    text-align: right;
+    color: rgb(105, 0, 119);
+    padding-left: 15px;
+    padding-right: 15px;
 }
-#bookList table td:nth-child(4) {  
-  max-width:350px;
+
+#bookList table td:nth-child(4) {
+    max-width: 350px;
 }
-td{
-  vertical-align: top;
+
+td {
+    vertical-align: top;
 }
-.isbnContainer,.titleContainer,.authContainer{
-  height:30px;
-  display:inline-block;
-  margin:0;
-  padding:0px;
-  position: relative;
-  border:1px solid rgb(165, 165, 165);
-  line-height: 30px;
-  vertical-align: middle;
+
+.isbnContainer, .titleContainer, .authContainer {
+    height: 30px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border: 1px solid rgb(165, 165, 165);
+    line-height: 30px;
+    vertical-align: middle;
 }
-input{
-  border:none;
-  line-height: 16px;
-  vertical-align: middle;
-  padding:2px 4px;
+
+input {
+    border: none;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 2px 4px;
 }
-#authList{
-  position: absolute;
-  top:32px;
-  border:1px solid rgb(240,240,240);
-  text-align: left;
-  background:rgb(253, 254, 252);
-  border-radius: 3px;
-  line-height: 16px;
-  vertical-align: middle;
+
+#authList {
+    position: absolute;
+    top: 32px;
+    border: 1px solid rgb(240, 240, 240);
+    text-align: left;
+    background: rgb(253, 254, 252);
+    border-radius: 3px;
+    line-height: 16px;
+    vertical-align: middle;
 }
-#authList li{
-  list-style-type: none;
-  cursor:pointer;
-  padding:4px 8px 3px 5px;
-  min-width: 68px;
-  font-size:0.85em;
+
+#authList li {
+    list-style-type: none;
+    cursor: pointer;
+    padding: 4px 8px 3px 5px;
+    min-width: 68px;
+    font-size: 0.85em;
 }
-#authList li:hover{
-  color:rgb(7, 24, 177);
-  font-size: 1em;
+
+#authList li:hover {
+    color: rgb(7, 24, 177);
+    font-size: 1em;
 }
-.selectedAuthor{
-  height:14px;
-  font-size:0.85em;
-  padding:4px 5px 2px 7px;
-  margin:2px 1px 3px 5px;
-  display:inline-block;
-  border-radius: 5px;
-  border:0.5px solid rgb(168, 0, 168);
-  background-color:rgba(255, 168, 255, 0.582);
-  line-height: 12px;
-  vertical-align: middle;
-  cursor:pointer;
+
+.selectedAuthor {
+    height: 14px;
+    font-size: 0.85em;
+    padding: 4px 5px 2px 7px;
+    margin: 2px 1px 3px 5px;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid rgb(168, 0, 168);
+    background-color: rgba(255, 168, 255, 0.582);
+    line-height: 12px;
+    vertical-align: middle;
+    cursor: pointer;
 }
-.removeAuth{
-  display: inline-block;
-  cursor:pointer;
-  color:rgb(168, 0, 168);
-  margin:0 0 2px 4px;
-  padding:0;
-  height:12px;
-  width:12px;
-  font-size:0.8em;
-  background-color: rgba(255, 47, 245, 0.034);
-  line-height: 12px;
-  vertical-align: middle;
+
+.removeAuth {
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(168, 0, 168);
+    margin: 0 0 2px 4px;
+    padding: 0;
+    height: 12px;
+    width: 12px;
+    font-size: 0.8em;
+    background-color: rgba(255, 47, 245, 0.034);
+    line-height: 12px;
+    vertical-align: middle;
 }
-.removeAuth:hover{
-  font-weight: bold;
+
+.removeAuth:hover {
+    font-weight: bold;
 }
-.authInput{
-  display: inline-block;
+
+.authInput {
+    display: inline-block;
 }
-.customButton{
-  cursor:pointer;
-  font-size:1.4em;
-  color:rgb(182, 12, 224);
-  line-height: 14px;
-  vertical-align: 0.7em;
-  height:26px;
-  width:26px;
-  border-radius:5px;
-  border:1px solid rgba(134, 70, 113, 0.377);
-  text-align:center;
-  background-color:rgba(255, 154, 247, 0.253);
-  user-select:none;
+
+.customButton {
+    cursor: pointer;
+    font-size: 1.4em;
+    color: rgb(182, 12, 224);
+    line-height: 14px;
+    vertical-align: 0.7em;
+    height: 26px;
+    width: 26px;
+    border-radius: 5px;
+    border: 1px solid rgba(134, 70, 113, 0.377);
+    text-align: center;
+    background-color: rgba(255, 154, 247, 0.253);
+    user-select: none;
 }
-.customButton:hover{
-  background-color:rgba(255, 161, 224, 0.377);
-  font-size:1.5em;
+
+.customButton:hover {
+    background-color: rgba(255, 161, 224, 0.377);
+    font-size: 1.5em;
 }
-tr:not(:first-child):hover{
-  background-color:rgba(255, 132, 255, 0.11)
+
+tr:not(:first-child):hover {
+    background-color: rgba(255, 132, 255, 0.11)
 }
-tr:hover td{
-  border:rgba(255, 132, 255, 0.11)
+
+tr:hover td {
+    border: rgba(255, 132, 255, 0.11)
 }
-.addButton,.closeButton,.nextButton{
-  cursor:pointer;
-  color:rgb(182, 12, 224);
-  border-radius:5px;
-  border:1px solid rgba(134, 70, 113, 0.377);
-  text-align:center;
-  background-color:rgba(255, 154, 247, 0.253);
-  display:inline-block;
-  vertical-align:middle;
-  /* font-size:0.9em; */
-  padding:4px 8px;
-  margin:2px 4px;
-  font-style: oblique;
+
+.addButton, .closeButton, .nextButton {
+    cursor: pointer;
+    color: rgb(182, 12, 224);
+    border-radius: 5px;
+    border: 1px solid rgba(134, 70, 113, 0.377);
+    text-align: center;
+    background-color: rgba(255, 154, 247, 0.253);
+    display: inline-block;
+    vertical-align: middle;
+    /* font-size:0.9em; */
+    padding: 4px 8px;
+    margin: 2px 4px;
+    font-style: oblique;
 }
-.addButton:hover,.closeButton:hover,.nextButton:hover{
-  box-shadow:1px 0px 4px rgb(135, 105, 190);
-  /* color:rgb(138, 19, 168); */
+
+.addButton:hover, .closeButton:hover, .nextButton:hover {
+    box-shadow: 1px 0 4px rgb(135, 105, 190);
+    /* color:rgb(138, 19, 168); */
 }
-input{
-  margin-bottom: 3px;
-  margin-left:2px;
+
+input {
+    margin-bottom: 3px;
+    margin-left: 2px;
 }
-.AuthorsShown{
-  display: inline-block;
-  margin:0;
-  padding:0 0 0 4px;
-  /* border: 1px solid rgba(165, 165, 165, 0.26); */
+
+.AuthorsShown {
+    display: inline-block;
+    margin: 0;
+    padding: 0 0 0 4px;
+    /* border: 1px solid rgba(165, 165, 165, 0.26); */
 }
-.BookAddingWizard{
-  background:rgb(248, 255, 252);
-  position:fixed;
-  max-width:80%;
-  top:50%;
-  left:50%;
-  display:block;
-  border:2px solid gray;
-  border-radius: 10px;
-  transform: translate(-50%,-50%);
-  padding:30px;
+
+.BookAddingWizard {
+    background: rgb(248, 255, 252);
+    position: fixed;
+    max-width: 80%;
+    top: 50%;
+    left: 50%;
+    display: block;
+    border: 2px solid gray;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    padding: 30px;
 }
-.customButton2{
-  display:inline-block;
-  cursor:pointer;
-  font-size:1em;
-  padding:5px 10px;
-  color:rgb(182, 12, 224);
-  vertical-align: middle;
-  border-radius:8px;
-  border:1px solid rgba(134, 70, 113, 0.377);
-  text-align:center;
-  background-color:rgba(255, 154, 247, 0.253);
-  user-select:none;
+
+.customButton2 {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px 10px;
+    color: rgb(182, 12, 224);
+    vertical-align: middle;
+    border-radius: 8px;
+    border: 1px solid rgba(134, 70, 113, 0.377);
+    text-align: center;
+    background-color: rgba(255, 154, 247, 0.253);
+    user-select: none;
 }
-.customButton2:hover{
-  background-color:rgba(255, 161, 224, 0.377);
-  color:rgb(122, 12, 224);
+
+.customButton2:hover {
+    background-color: rgba(255, 161, 224, 0.377);
+    color: rgb(122, 12, 224);
 }
