@@ -6,7 +6,7 @@ import Title from './components/Title';
 import Footer from './components/Footer';
 import BookAddingWizard from './components/BookAddingWizard';
 
-const API = "http://10.22.41.73:8080";
+const API = "http://10.22.41.73:8090";
 // const API = "http://localhost:8080";
 //const API = "http://192.168.43.166:8080";
 
@@ -43,9 +43,10 @@ class App extends Component {
             }
         });
         if (e.target.value.length >= 1) {
-            fetch(API + "/authors?s=" + e.target.value, {mode: 'cors', headers: {'Access-Control-Allow-Origin': '*'},})
+            fetch(API + "/authors?s=" + e.target.value, {method: 'GET',mode: 'cors', headers: {'Access-Control-Allow-Origin': '*'},})
                 .then(response => response.json())
                 .then(jsondata => {
+                        
                         let n = this.state.currentBook.authors.length;
                         let result = jsondata;
                         if (n > 0) {
