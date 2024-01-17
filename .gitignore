@@ -25,3 +25,8 @@ yarn-error.log*
 *.iws
 *.iml
 *.ipr
+
+.idea/
+.vs/
+package-lock.json
+desktop.ini
