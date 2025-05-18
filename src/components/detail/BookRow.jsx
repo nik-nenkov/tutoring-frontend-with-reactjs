@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import './BookRow.scss';
 class BookRow extends Component {
     render() {
         return (
@@ -25,7 +25,7 @@ class BookRow extends Component {
                 </td>
 
                 <td>
-                    <div onClick={this.props.delete} className="customButton">...</div>
+                    <div onClick={this.props.delete} className="customButton">X</div>
                 </td>
             </tr>
         );

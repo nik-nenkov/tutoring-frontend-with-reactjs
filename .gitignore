@@ -30,3 +30,5 @@ yarn-error.log*
 .vs/
 package-lock.json
 desktop.ini
+
+dist/

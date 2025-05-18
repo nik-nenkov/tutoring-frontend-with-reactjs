@@ -1,0 +1,25 @@
+@use '../../styles/constants.scss' as *;
+
+#bookList table td:nth-child(1) {
+    text-align: right;
+    color: $color-book-id;
+}
+
+#bookList table td:nth-child(3) {
+    text-align: right;
+    color: $color-book-isbn;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#bookList table td:nth-child(4) {
+    max-width: $booklist-max-width;
+}
+
+tr:not(:first-child):hover {
+    background-color: rgba(255, 132, 255, 0.11);
+}
+
+tr:hover td {
+    border: rgba(255, 132, 255, 0.11);
+}

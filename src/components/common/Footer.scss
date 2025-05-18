@@ -1,0 +1,9 @@
+@use '../../styles/constants.scss' as *;
+
+.Footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: $color-footer-bg;
+    height: $main-footer-height;
+}

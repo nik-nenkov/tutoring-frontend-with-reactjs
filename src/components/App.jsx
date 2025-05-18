@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import './resources/App.css';
-import BookRow from './components/BookRow';
-import Title from './components/Title';
-import Footer from './components/Footer';
-import BookAddingWizard from './components/BookAddingWizard';
-import { useBooks } from './hooks/useBooks';
-import { useAuthors } from './hooks/useAuthors';
+import './App.scss';
+import BookRow from './detail/BookRow';
+import Title from './common/Title';
+import Footer from './common/Footer';
+import BookAddingWizard from './form/BookAddingWizard';
+import { useBooks } from '../hooks/useBooks';
+import { useAuthors } from '../hooks/useAuthors';
 
 function App() {
   const [isWizardOpened, setIsWizardOpened] = useState(false);

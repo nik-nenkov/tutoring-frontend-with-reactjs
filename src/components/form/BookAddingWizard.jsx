@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import './BookAddingWizzard.scss';
 class BookAddingWizard extends Component {
     render() {
         if (this.props.isWizardOpened) {

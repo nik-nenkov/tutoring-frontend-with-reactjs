@@ -1,0 +1,86 @@
+@use '../styles/constants.scss' as *;
+
+:root {
+    --main-footer-height: #{$main-footer-height};
+}
+
+.App {
+    background-color: $color-app-bg;
+    position: absolute;
+    text-align: center;
+    cursor: default;
+    min-height: calc(100% - var(--main-footer-height));
+    min-width: 100%;
+    padding-bottom: var(--main-footer-height);
+
+    // Table styling
+    #bookList {
+        table {
+            width: 40%;
+            border: 1px solid $color-main-bg;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background: $color-app-bg;
+            border-radius: $border-radius;
+            overflow: hidden;
+            box-shadow: 0 0px 10px rgba(0,0,0,0.04);
+
+            th, td {
+                padding: 10px 12px;
+                border-bottom: 1px solid $color-main-bg;
+                text-align: left;
+            }
+
+            th {
+                background: $color-footer-bg;
+                color: $color-title;
+                font-weight: bold;
+            }
+
+            tr:not(:first-child):hover {
+                background-color: $color-selected-author-bg;
+            }
+
+            td {
+                &:nth-child(1) {
+                    text-align: right;
+                    color: $color-book-id;
+                }
+                &:nth-child(3) {
+                    text-align: right;
+                    color: $color-book-isbn;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+                &:nth-child(4) {
+                    max-width: $booklist-max-width;
+                }
+            }
+        }
+    }
+
+    // Button styling
+    .customButton2,
+    .customButton,
+    .addButton,
+    .closeButton,
+    .nextButton {
+        cursor: pointer;
+        color: $color-custom-btn;
+        border-radius: $border-radius;
+        border: 1px solid $color-custom-btn;
+        text-align: center;
+        background-color: $color-custom-btn-bg;
+        user-select: none;
+        padding: 8px 18px;
+        margin: 6px auto;
+        font-size: 1em;
+        transition: background 0.2s, color 0.2s;
+        width: 100px;
+
+        &:hover {
+            background-color: $color-custom-btn-hover-bg;
+            color: $color-title;
+        }
+    }
+}

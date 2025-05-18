@@ -1,0 +1,52 @@
+@use '../../styles/constants.scss' as *;
+
+.BookAddingWizard {
+    background: rgb(248, 255, 252);
+    position: fixed;
+    max-width: $bookaddingwizard-max-width;
+    top: 50%;
+    left: 50%;
+    display: block;
+    border: 2px solid gray;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    padding: $bookaddingwizard-padding;
+}
+
+.selectedAuthor {
+    height: 14px;
+    font-size: 0.85em;
+    padding: 4px 5px 2px 7px;
+    margin: 2px 1px 3px 5px;
+    display: inline-block;
+    border-radius: $border-radius;
+    border: 1px solid $color-selected-author-border;
+    background-color: $color-selected-author-bg;
+    line-height: 12px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.removeAuth {
+    display: inline-block;
+    cursor: pointer;
+    color: $color-selected-author-border;
+    margin: 0 0 2px 4px;
+    padding: 0;
+    height: 12px;
+    width: 12px;
+    font-size: 0.8em;
+    background-color: rgba(255, 47, 245, 0.034);
+    line-height: 12px;
+    vertical-align: middle;
+}
+
+.removeAuth:hover {
+    font-weight: bold;
+}
+
+.AuthorsShown {
+    display: inline-block;
+    margin: 0;
+    padding: 0 0 0 4px;
+}
